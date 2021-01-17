@@ -5,17 +5,33 @@ WINDOW *create_window(int height, int width, int posy, int posx, bool border);
 void print_room(WINDOW *win, char room[9][9]);
 void print_ham(WINDOW *win, int h,int hmax, int a, int m);
 void print_help(WINDOW *win);
+void init_color_pairs();
 int main()
 {
     char tab[9][9];
     for (int i = 0; i < 9; i++)
     {
-        for(int j=0; j<9; j++)
-        tab[i][j]='k';
+        for (int j = 0; j <9; j++)
+        {
+            if(j%5==0) tab[i][j]='K';
+            else if(j%5==1) tab[i][j]='P';
+            else if(j%5==2) tab[i][j]='#';
+            else if(j%5==3) tab[i][j]='@';
+            else if(j%5==4) tab[i][j]='M';
+        }
+        
     }
+    
+    
     initscr();
+    start_color();
     refresh();
-    WINDOW *field;     //displayed room
+    init_pair(1, COLOR_GREEN, 0);
+    init_pair(2, COLOR_RED, 0);
+    init_pair(3, COLOR_YELLOW, 0);
+    init_pair(4, COLOR_CYAN, 0);
+    
+    WINDOW *field;     //displayed rooms
     WINDOW *ham;     //zdrowie, mikstury, atak
     WINDOW *help;   //how to play
     
@@ -27,6 +43,7 @@ int main()
     print_room(field, tab);
     print_ham(ham, 10,100, 20, 4);
     print_help(help);
+    
     getch();
     endwin();
 }
@@ -45,20 +62,58 @@ WINDOW *create_window(int height, int width, int posy, int posx, bool border){
 void print_room(WINDOW *win, char room[9][9]){
     for (int i = 0; i < 9; i++)
     {
-        for(int j=0; j<9; j++)
-        mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+        for(int j=0; j<9; j++){
+            switch (room[i][j])
+            {
+            case '@':
+                wattron(win, COLOR_PAIR(2));
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                wattroff(win, COLOR_PAIR(2));
+                break;
+            case 'M':
+                wattron(win, COLOR_PAIR(3));
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                wattroff(win, COLOR_PAIR(3));
+                break;
+            case 'P':
+                wattron(win, COLOR_PAIR(4));
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                wattroff(win, COLOR_PAIR(4));
+                break;
+            case 'K':
+                wattron(win, COLOR_PAIR(1));
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                wattroff(win, COLOR_PAIR(1));
+                break;
+            default: 
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                break;
+            }
+        
+        }
     }
     wrefresh(win);
 }
 
 void print_ham(WINDOW *win, int h,int hmax, int a, int m){
+    wattron(win, COLOR_PAIR(1));
     mvwprintw(win, 1, 1, "Punkty zycia: %d/%d", h, hmax);
     mvwprintw(win, 2, 1, "Atak: %d", a);
     mvwprintw(win, 3, 1, "Ilosc mikstur: %d", m);
+    wattroff(win, COLOR_PAIR(1));
     wrefresh(win);
 }
 
 void print_help(WINDOW *win){
+    wattron(win, COLOR_PAIR(1));
     wprintw(win, "Uzywaj WSAD do poruszania sie.\nWcisnij \"m\" aby wypic miksture");
+    wattroff(win, COLOR_PAIR(1));
     wrefresh(win);
+}
+void init_color_pairs(){
+     init_pair(1, COLOR_GREEN, 0);
+    init_pair(2, COLOR_RED, 0);
+    init_pair(3, COLOR_YELLOW, 0);
+    init_pair(4, COLOR_CYAN, 0);
+    
 }
