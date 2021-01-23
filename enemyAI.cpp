@@ -4,6 +4,9 @@
 #include<stdbool.h>
 #include<queue>
 #include<utility>
+#include "head.h"
+
+
 
 using namespace std;
 
