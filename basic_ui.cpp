@@ -49,16 +49,16 @@ void print_room(WINDOW *win, char room[9][9]){
 
 void print_ham(WINDOW *win, int h,int hmax, int keys, int m){
     wattron(win, COLOR_PAIR(1));
-    mvwprintw(win, 1, 1, "Punkty zycia: %d/%d", h, hmax);
-    mvwprintw(win, 2, 1, "Ilosc mikstur: %d", m);
-    mvwprintw(win, 3, 1, "Klucze: %d/3", keys);
+    mvwprintw(win, 1, 1, "Health: %d/%d", h, hmax);
+    mvwprintw(win, 2, 1, "Potions: %d", m);
+    mvwprintw(win, 3, 1, "Keys: %d/3", keys);
     wattroff(win, COLOR_PAIR(1));
     wrefresh(win);
 }
 
 void print_help(WINDOW *win){
     wattron(win, COLOR_PAIR(1));
-    wprintw(win, "\nZdobadz 3 klucze i znajdz \nprzejscie na nastepny poziom\nUzywaj WSAD do poruszania sie.\nWcisnij \"p\" aby wypic miksture");
+    wprintw(win, "\nCollect 3 keys and find \npassage to the next level.\nUse WSAD to move.\nPress \"p\" to drink a potion.");
     wattroff(win, COLOR_PAIR(1));
     wrefresh(win);
 }
