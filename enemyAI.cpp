@@ -4,12 +4,14 @@
 #include<stdbool.h>
 #include<queue>
 #include<utility>
+#include "head.h"
+
+
 
 using namespace std;
 
 #define RES 9
 
-char sym[4] = {'@'/*Gracz*/, '$'/*Potwór*/, '+'/*Puste pole*/, '#'/*Ściana*/};
 
 void UpdateEnemies(char board[RES][RES]){
 
