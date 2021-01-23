@@ -9,9 +9,9 @@ using namespace std;
 
 #define RES 9
 
-char sym[4] = {'@'/*Gracz*/, '$'/*Potwór*/, '+'/*Puste pole*/, '#'/*Ściana*/};
 
 void UpdateEnemies(char board[RES][RES]){
+	char sym[4] = {'@'/*Gracz*/, '$'/*Potwór*/, '+'/*Puste pole*/, '#'/*Ściana*/};
 
 	int x_p = 0, y_p = 0; // Pozycja gracza
 
