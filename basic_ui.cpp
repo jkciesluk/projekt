@@ -1,52 +1,4 @@
-#include <ncurses.h>
-#include <stdbool.h>
-
-WINDOW *create_window(int height, int width, int posy, int posx, bool border);
-void print_room(WINDOW *win, char room[9][9]);
-void print_ham(WINDOW *win, int h,int hmax, int a, int m);
-void print_help(WINDOW *win);
-void init_color_pairs();
-int main()
-{
-    char tab[9][9];
-    for (int i = 0; i < 9; i++)
-    {
-        for (int j = 0; j <9; j++)
-        {
-            if(j%5==0) tab[i][j]='K';
-            else if(j%5==1) tab[i][j]='P';
-            else if(j%5==2) tab[i][j]='#';
-            else if(j%5==3) tab[i][j]='@';
-            else if(j%5==4) tab[i][j]='M';
-        }
-        
-    }
-    
-    
-    initscr();
-    start_color();
-    refresh();
-    init_pair(1, COLOR_GREEN, 0);
-    init_pair(2, COLOR_RED, 0);
-    init_pair(3, COLOR_YELLOW, 0);
-    init_pair(4, COLOR_CYAN, 0);
-    
-    WINDOW *field;     //displayed rooms
-    WINDOW *ham;     //zdrowie, mikstury, atak
-    WINDOW *help;   //how to play
-    
-
-
-    field=create_window(11, 21, 5, 5, TRUE);
-    help=create_window(5, 35, 13, 30, FALSE);
-    ham=create_window(5, 25, 5, 30, TRUE);
-    print_room(field, tab);
-    print_ham(ham, 10,100, 20, 4);
-    print_help(help);
-    
-    getch();
-    endwin();
-}
+#include "head.h"
 
 
 WINDOW *create_window(int height, int width, int posy, int posx, bool border){
@@ -95,18 +47,18 @@ void print_room(WINDOW *win, char room[9][9]){
     wrefresh(win);
 }
 
-void print_ham(WINDOW *win, int h,int hmax, int a, int m){
+void print_ham(WINDOW *win, int h,int hmax, int keys, int m){
     wattron(win, COLOR_PAIR(1));
     mvwprintw(win, 1, 1, "Punkty zycia: %d/%d", h, hmax);
-    mvwprintw(win, 2, 1, "Atak: %d", a);
-    mvwprintw(win, 3, 1, "Ilosc mikstur: %d", m);
+    mvwprintw(win, 2, 1, "Ilosc mikstur: %d", m);
+    mvwprintw(win, 3, 1, "Klucze: %d/3", keys);
     wattroff(win, COLOR_PAIR(1));
     wrefresh(win);
 }
 
 void print_help(WINDOW *win){
     wattron(win, COLOR_PAIR(1));
-    wprintw(win, "Uzywaj WSAD do poruszania sie.\nWcisnij \"m\" aby wypic miksture");
+    wprintw(win, "\nZdobadz 3 klucze i znajdz \nprzejscie na nastepny poziom\nUzywaj WSAD do poruszania sie.\nWcisnij \"p\" aby wypic miksture");
     wattroff(win, COLOR_PAIR(1));
     wrefresh(win);
 }

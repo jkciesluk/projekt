@@ -16,7 +16,7 @@ typedef struct hero
 
 } first;
 
-#define maxhp 10
+#define maxhp 15
 #define wrogatak1 2
 #define wrogatak2 3
 #define wrogatak3 4
@@ -60,14 +60,21 @@ int main()
     t[5][7]=sym[1];
     t[7][6]=sym[1];
 
-    for(int i=0; i<RES; i++)
-        {
-            for (int j=0; j<RES; j++)
-            {
-                printf(" %c",t[i][j]);
-            }
-            printf("\n");
-        }
+    initscr();
+    start_color();    
+    init_color_pairs();
+    refresh();
+    WINDOW *field;     //displayed rooms
+    WINDOW *ham;     //zdrowie, mikstury, atak
+    WINDOW *help;   //how to play
+    
+    field=create_window(11, 21, 5, 5, TRUE);
+    help=create_window(5, 35, 10, 30, FALSE);
+    ham=create_window(5, 25, 5, 30, TRUE);
+    
+    print_room(field, t);
+    print_ham(ham, player.hp,maxhp, 0, player.pot);
+    print_help(help);
 
     while((player.hp)>0)
     {
@@ -195,24 +202,14 @@ int main()
         }
 
 
-
-
-
-
-
-        for(int i=0; i<RES; i++)
-        {
-            for (int j=0; j<RES; j++)
-            {
-                printf(" %c",t[i][j]);
-            }
-            printf("\n");
-        }
-
+        
+        print_room(field, t);
+        print_ham(ham, player.hp,maxhp, 0, player.pot);
     }
 
 
-
+    getch();
+    endwin();
 
     return 0;
 }
