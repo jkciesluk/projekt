@@ -1,28 +1,17 @@
 #include <ncurses.h>
 #include <stdbool.h>
+#include "head.h"
 
 WINDOW *create_window(int height, int width, int posy, int posx, bool border);
 void print_room(WINDOW *win, char room[9][9]);
 void print_ham(WINDOW *win, int h,int hmax, int a, int m);
 void print_help(WINDOW *win);
 void init_color_pairs();
-int main()
+
+int display(char t[RES][RES])
 {
-    char tab[9][9];
-    for (int i = 0; i < 9; i++)
-    {
-        for (int j = 0; j <9; j++)
-        {
-            if(j%5==0) tab[i][j]='K';
-            else if(j%5==1) tab[i][j]='P';
-            else if(j%5==2) tab[i][j]='#';
-            else if(j%5==3) tab[i][j]='@';
-            else if(j%5==4) tab[i][j]='M';
-        }
-        
-    }
-    
-    
+
+
     initscr();
     start_color();
     refresh();
@@ -30,11 +19,11 @@ int main()
     init_pair(2, COLOR_RED, 0);
     init_pair(3, COLOR_YELLOW, 0);
     init_pair(4, COLOR_CYAN, 0);
-    
+
     WINDOW *field;     //displayed rooms
     WINDOW *ham;     //zdrowie, mikstury, atak
     WINDOW *help;   //how to play
-    
+
 
 
     field=create_window(11, 21, 5, 5, TRUE);
@@ -43,7 +32,7 @@ int main()
     print_room(field, tab);
     print_ham(ham, 10,100, 20, 4);
     print_help(help);
-    
+
     getch();
     endwin();
 }
@@ -85,11 +74,11 @@ void print_room(WINDOW *win, char room[9][9]){
                 mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
                 wattroff(win, COLOR_PAIR(1));
                 break;
-            default: 
+            default:
                 mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
                 break;
             }
-        
+
         }
     }
     wrefresh(win);
@@ -115,5 +104,5 @@ void init_color_pairs(){
     init_pair(2, COLOR_RED, 0);
     init_pair(3, COLOR_YELLOW, 0);
     init_pair(4, COLOR_CYAN, 0);
-    
+
 }

@@ -5,6 +5,8 @@
 using namespace std;
 #define RES 9
 
+char sym[7] = {'@'/*Gracz*/, '$'/*Potwór*/, '+'/*Puste pole*/, '#'/*Œciana*/, '-' /*potwor dwufazowy*/, '!' /*potwor 3faz*/, 'M' /*mikstura*/};
+
 typedef struct hero
 {
 
@@ -23,7 +25,6 @@ typedef struct hero
 
 char t[RES][RES];
 
-char sym[7] = {'@'/*Gracz*/, '$'/*Potwór*/, '+'/*Puste pole*/, '#'/*Œciana*/, '-' /*potwor dwufazowy*/, '!' /*potwor 3faz*/, 'M' /*mikstura*/};
 
 char input;
 
@@ -59,12 +60,21 @@ int main()
     t[5][7]=sym[1];
     t[7][6]=sym[1];
 
+    for(int i=0; i<RES; i++)
+        {
+            for (int j=0; j<RES; j++)
+            {
+                printf(" %c",t[i][j]);
+            }
+            printf("\n");
+        }
+
     while((player.hp)>0)
     {
-        scanf("%c",&input);
+        scanf("\n%c",&input);
+
 
         t[xp][yp]=sym[2];
-
 
         // zmiana pozycji gracza/uzycie mikstury zaleznie od wczytanej czynnosci
 
@@ -111,6 +121,7 @@ int main()
         t[xp][yp]=sym[0];
 
 
+        UpdateEnemies(t);
 
         //sprawdzanie czy wokol stoi potwor jesli takodbywa sie walka zaleznie od fazy potwora po pokonaniu ten ginie lub zmienia sie w nizsza faze
 
@@ -132,7 +143,7 @@ int main()
             t[xp+1][yp]=sym[4];
         }
 
-        if(t[xp][yp+1]==sym[1])
+            if(t[xp][yp+1]==sym[1])
         {
             player.hp=(player.hp)-(wrogatak1);
             t[xp][yp+1]=sym[2];
@@ -185,7 +196,6 @@ int main()
 
 
 
-        UpdateEnemies(t);
 
 
 
@@ -194,11 +204,10 @@ int main()
         {
             for (int j=0; j<RES; j++)
             {
-                printf("%c",t[i][j]);
+                printf(" %c",t[i][j]);
             }
             printf("\n");
         }
-
 
     }
 
