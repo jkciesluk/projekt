@@ -22,11 +22,21 @@ void print_room(WINDOW *win, char room[9][9]){
                 mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
                 wattroff(win, COLOR_PAIR(2));
                 break;
+            case 'm':
+                wattron(win, COLOR_PAIR(3));
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                wattroff(win, COLOR_PAIR(3));
+                break;
             case 'M':
                 wattron(win, COLOR_PAIR(3));
                 mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
                 wattroff(win, COLOR_PAIR(3));
                 break;
+            case 'W':
+                wattron(win, COLOR_PAIR(3));
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                wattroff(win, COLOR_PAIR(3));
+                break;    
             case 'P':
                 wattron(win, COLOR_PAIR(4));
                 mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
@@ -37,6 +47,17 @@ void print_room(WINDOW *win, char room[9][9]){
                 mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
                 wattroff(win, COLOR_PAIR(1));
                 break;
+            case 'D':
+                wattron(win, COLOR_PAIR(5));
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                wattroff(win, COLOR_PAIR(5));
+                break;    
+            case 'E':
+                wattron(win, COLOR_PAIR(5));
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                wattroff(win, COLOR_PAIR(5));
+                break;    
+            
             default: 
                 mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
                 break;
@@ -63,9 +84,9 @@ void print_help(WINDOW *win){
     wrefresh(win);
 }
 void init_color_pairs(){
-     init_pair(1, COLOR_GREEN, 0);
+    init_pair(1, COLOR_GREEN, 0);
     init_pair(2, COLOR_RED, 0);
     init_pair(3, COLOR_YELLOW, 0);
     init_pair(4, COLOR_CYAN, 0);
-    
+    init_pair(5, COLOR_BLUE, 0);
 }

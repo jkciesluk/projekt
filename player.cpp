@@ -5,7 +5,7 @@
 using namespace std;
 #define RES 9
 
-char sym[7] = {'@'/*Gracz*/, '$'/*Potwór*/, '+'/*Puste pole*/, '#'/*Œciana*/, '-' /*potwor dwufazowy*/, '!' /*potwor 3faz*/, 'M' /*mikstura*/};
+char sym[7] = {'@'/*Gracz*/, 'm'/*Potwór*/, '+'/*Puste pole*/, '#'/*Œciana*/, 'M' /*potwor dwufazowy*/, 'W' /*potwor 3faz*/, 'P' /*mikstura*/};
 
 typedef struct hero
 {
@@ -51,7 +51,8 @@ int main()
             }
         }
     }
-
+    t[8][4]='D';
+    t[4][4]='P';
     int xp=3;
     int yp=3;
 
