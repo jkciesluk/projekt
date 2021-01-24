@@ -1,5 +1,7 @@
 # Roguelike game
 
+![SH1](https://user-images.githubusercontent.com/67589117/105646532-ae7ae500-5ea0-11eb-96da-e6bbcb71a452.png)
+
 ## Projekt z PWI
 ___
 ### Game description
