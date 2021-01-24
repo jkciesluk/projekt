@@ -5,13 +5,14 @@
 using namespace std;
 #define RES 9
 
-char sym[7] = {'@'/*Gracz*/, 'm'/*Potwór*/, '+'/*Puste pole*/, '#'/*Œciana*/, 'M' /*potwor dwufazowy*/, 'W' /*potwor 3faz*/, 'P' /*mikstura*/};
+char sym[8] = {'@'/*Gracz*/, 'm'/*Potwór*/, '+'/*Puste pole*/, '#'/*Œciana*/, 'M' /*potwor dwufazowy*/, 'W' /*potwor 3faz*/, 'P' /*mikstura*/, 'K' /*mikstura*/};
 
 typedef struct hero
 {
 
     int hp;
     int pot;
+    int keys;
 //int atak; na te chwile bez znaczenia
 
 } first;
@@ -35,6 +36,7 @@ int main()
 
     player.hp = maxhp;
     player.pot = 1;
+    player.keys = 0;
 
 
     for(int i=0; i<RES; i++)
@@ -62,17 +64,17 @@ int main()
     t[7][6]=sym[1];
 
     initscr();
-    start_color();    
+    start_color();
     init_color_pairs();
     refresh();
     WINDOW *field;     //displayed rooms
     WINDOW *ham;     //zdrowie, mikstury, atak
     WINDOW *help;   //how to play
-    
+
     field=create_window(11, 21, 5, 5, TRUE);
     help=create_window(5, 35, 10, 30, FALSE);
     ham=create_window(5, 25, 5, 30, TRUE);
-    
+
     print_room(field, t);
     print_ham(ham, player.hp,maxhp, 0, player.pot);
     print_help(help);
@@ -125,6 +127,9 @@ int main()
         {
             player.pot=player.pot - 1;
             player.hp = maxhp;
+        }
+        if(t[xp][yp]==sym[7]){
+            player.keys=player.keys + 1;
         }
         t[xp][yp]=sym[0];
 
@@ -203,7 +208,7 @@ int main()
         }
 
 
-        
+
         print_room(field, t);
         print_ham(ham, player.hp,maxhp, 0, player.pot);
     }
