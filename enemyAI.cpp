@@ -20,6 +20,18 @@ void UpdateEnemies(char board[RES][RES]){
 
 	int x_p = 0, y_p = 0; // Pozycja gracza
 
+	bool exit = false;
+	int exit_x = 0, exit_y = 0;
+
+	for(int i = 0; i < RES; i++){
+		for(int j = 0; j < RES; j++){
+			if(board[i][j] == 'E'){
+				exit_x = i;
+				exit_y = j;
+			}
+		}
+	}
+
 	// Inicjuję bfs
 
 	int dist[RES][RES];
@@ -106,6 +118,10 @@ void UpdateEnemies(char board[RES][RES]){
 
 			}
 		}
+	}
+
+	if(exit && !IsEnemy(board[exit_x][exit_y]) && board[exit_x][exit_y] != sym[0]){
+		board[exit_x][exit_y] = 'E';
 	}
 
 }
