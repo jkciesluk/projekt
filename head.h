@@ -9,7 +9,7 @@ extern char t[9][9];
 extern char sym[8];
 WINDOW *create_window(int height, int width, int posy, int posx, bool border);
 void print_room(WINDOW *win, char room[9][9]);
-void print_ham(WINDOW *win, int h,int hmax, int keys, int m);
+void print_ham(WINDOW *win, int h,int hmax, int keys, int m, int lvl);
 void print_help(WINDOW *win);
 void init_color_pairs();
 void plansza_enter (char Tt[][9], int ai, int aj);

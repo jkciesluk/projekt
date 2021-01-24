@@ -70,11 +70,11 @@ int main()
     clear();
     refresh();
     field=create_window(11, 21, (sizey-11)/2, sizex/2-33, TRUE);
-    help=create_window(5, 35, (sizey-11)/2+5, sizex/2-10, FALSE);
-    ham=create_window(5, 25, (sizey-11)/2, sizex/2-10, TRUE);
+    help=create_window(5, 35, (sizey-11)/2+6, sizex/2-10, FALSE);
+    ham=create_window(6, 25, (sizey-11)/2, sizex/2-10, TRUE);
 
     print_room(field, t);
-    print_ham(ham, player.hp,maxhp, 0, player.pot);
+    print_ham(ham, player.hp,maxhp, 0, player.pot, lvl);
     print_help(help);
 
 
@@ -230,7 +230,7 @@ int main()
 
 
         print_room(field, t);
-        print_ham(ham, player.hp,maxhp, player.keys, player.pot);
+        print_ham(ham, player.hp,maxhp, player.keys, player.pot, lvl);
     }
 
     wborder(field, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');

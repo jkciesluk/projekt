@@ -72,11 +72,12 @@ void print_room(WINDOW *win, char room[9][9]){
     wrefresh(win);
 }
 
-void print_ham(WINDOW *win, int h,int hmax, int keys, int m){
+void print_ham(WINDOW *win, int h,int hmax, int keys, int m, int lvl){
     wattron(win, COLOR_PAIR(1));
     mvwprintw(win, 1, 1, "Health: %2.d/%2.d", h, hmax);
-    mvwprintw(win, 2, 1, "Potions: %d", m);
+    mvwprintw(win, 2, 1, "Potions: %2.d", m);
     mvwprintw(win, 3, 1, "Keys: %d/3", keys);
+    mvwprintw(win, 4, 1, "Level: %d/3", lvl);
     wattroff(win, COLOR_PAIR(1));
     wrefresh(win);
 }
