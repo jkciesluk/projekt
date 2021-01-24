@@ -30,7 +30,7 @@ D - doors,
 E - hatch to the next level
 
 
-###### How to install:
+#### How to install:
 First, install ncurses:
 >sudo apt-get install libncurses5-dev libncursesw5-dev
 
