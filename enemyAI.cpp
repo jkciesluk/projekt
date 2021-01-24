@@ -13,7 +13,7 @@ using namespace std;
 #define RES 9
 
 bool IsEnemy(char c){
-	return c == 'm' || c == 'M' || c == 'W';
+	return c == sym[1] || c == sym[4] || c == sym[5];
 }
 
 void UpdateEnemies(char board[RES][RES]){
