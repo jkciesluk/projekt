@@ -26,6 +26,7 @@ typedef struct hero
 
 char t[RES][RES];
 
+int gX, gY;
 
 char input;
 
@@ -57,7 +58,7 @@ int main()
     t[4][4]='P';
     int xp=3;
     int yp=3;
-
+    
     t[xp][yp]=sym[0];
 
     t[5][7]=sym[5];
@@ -74,11 +75,11 @@ int main()
     WINDOW *ham;     //zdrowie, mikstury, atak
     WINDOW *help;   //how to play
     attron(COLOR_PAIR(1));
-    mvprintw(sizey/2-4, sizex/2-20, "Swiety Wedrowiec wsrod debow");
-    mvprintw(sizey/2-2, sizex/2-20, "Przed Toba 3 pietra labiryntu");
-    mvprintw(sizey/2-1, sizex/2-20, "Na koncu czeka na Ciebie piekna ksiezniczka");
-    mvprintw(sizey/2, sizex/2-20, "Unikaj potworow, zbieraj klucz i ja uratuj");
-    mvprintw(sizey/2+2, sizex/2-20, "Wcisnij dowolny przycisk zeby rozpoczac");
+    mvprintw(sizey/2-4, sizex/2-20, "Saint Wojciech among Oaks");
+    mvprintw(sizey/2-2, sizex/2-20, "There are 3 levels of the maze");
+    mvprintw(sizey/2-1, sizex/2-20, "At the end a beautiful Princess awaits");
+    mvprintw(sizey/2, sizex/2-20, "Avoid monsters, collect keys and save her");
+    mvprintw(sizey/2+2, sizex/2-20, "Press any key to begin");
     attroff(COLOR_PAIR(1));
     refresh();
     getch();
@@ -101,58 +102,6 @@ int main()
         t[xp][yp]=sym[2];
 
         // zmiana pozycji gracza/uzycie mikstury zaleznie od wczytanej czynnosci
-
-        if(input=='w' && t[xp-1][yp]!=sym[3] && t[xp-1][yp]!=sym[5] && t[xp-1][yp]!=sym[4] && t[xp-1][yp]!=sym[1])
-        {
-            if(t[xp-1][yp]==sym[6])
-            {
-                player.pot++;
-            }
-            xp--;
-        }
-        else if(input=='s' && t[xp+1][yp]!=sym[3]  && t[xp+1][yp]!=sym[5] && t[xp+1][yp]!=sym[4] && t[xp+1][yp]!=sym[4])
-        {
-            if(t[xp+1][yp]==sym[6])
-            {
-                player.pot++;
-            }
-            xp++;
-
-        }
-        else if(input=='a' && t[xp][yp-1]!=sym[3]  && t[xp][yp-1]!=sym[5] && t[xp][yp-1]!=sym[4] && t[xp][yp-1]!=sym[1])
-        {
-            if(t[xp][yp-1]==sym[6])
-            {
-                player.pot++;
-            }
-            yp--;
-
-        }
-        else if(input=='d' && t[xp][yp+1]!=sym[3]  && t[xp][yp+1]!=sym[5] && t[xp][yp+1]!=sym[4] && t[xp][yp+1]!=sym[1])
-        {
-            if(t[xp][yp+1]==sym[6])
-            {
-                player.pot++;
-            }
-            yp++;
-
-        }
-        else if(input=='p')
-        {
-            player.pot=player.pot - 1;
-            player.hp = maxhp;
-        }
-        if(t[xp][yp]==sym[7]){
-            player.keys=player.keys + 1;
-        }
-        t[xp][yp]=sym[0];
-
-
-        UpdateEnemies(t);
-
-        //sprawdzanie czy wokol stoi potwor jesli takodbywa sie walka zaleznie od fazy potwora po pokonaniu ten ginie lub zmienia sie w nizsza faze
-
-
         if(t[xp+1][yp]==sym[1])
         {
             player.hp=(player.hp)-(wrogatak1);
@@ -222,6 +171,65 @@ int main()
         }
 
 
+        if(input=='w' && t[xp-1][yp]!=sym[3] && t[xp-1][yp]!=sym[5] && t[xp-1][yp]!=sym[4] && t[xp-1][yp]!=sym[1])
+        {
+            if(t[xp-1][yp]==sym[6])
+            {
+                player.pot++;
+            }
+            xp--;
+        }
+        else if(input=='s' && t[xp+1][yp]!=sym[3]  && t[xp+1][yp]!=sym[5] && t[xp+1][yp]!=sym[4] && t[xp+1][yp]!=sym[4])
+        {
+            if(t[xp+1][yp]==sym[6])
+            {
+                player.pot++;
+            }
+            xp++;
+
+        }
+        else if(input=='a' && t[xp][yp-1]!=sym[3]  && t[xp][yp-1]!=sym[5] && t[xp][yp-1]!=sym[4] && t[xp][yp-1]!=sym[1])
+        {
+            if(t[xp][yp-1]==sym[6])
+            {
+                player.pot++;
+            }
+            yp--;
+
+        }
+        else if(input=='d' && t[xp][yp+1]!=sym[3]  && t[xp][yp+1]!=sym[5] && t[xp][yp+1]!=sym[4] && t[xp][yp+1]!=sym[1])
+        {
+            if(t[xp][yp+1]==sym[6])
+            {
+                player.pot++;
+            }
+            yp++;
+
+        }
+        else if(input=='p')
+        {
+            player.pot=player.pot - 1;
+            player.hp = maxhp;
+        }
+        if(t[xp][yp]==sym[7]){
+            player.keys=player.keys + 1;
+        }
+
+        if(t[xp][yp]=='D'){
+            
+            //ret_room(input, )
+        }
+        t[xp][yp]=sym[0];
+
+
+
+        
+        UpdateEnemies(t);
+
+        //sprawdzanie czy wokol stoi potwor jesli takodbywa sie walka zaleznie od fazy potwora po pokonaniu ten ginie lub zmienia sie w nizsza faze
+
+
+
         print_room(field, t);
         print_ham(ham, player.hp,maxhp, 0, player.pot);
     }
@@ -231,10 +239,10 @@ int main()
     wborder(ham, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
     clear();
     if(player.hp<=0){
-        mvprintw(sizey/2-1, sizex/2-5, "Przegrales!");
+        mvprintw(sizey/2-1, sizex/2-5, "You lost!");
     }
     else{
-        mvprintw(sizey/2-5, sizex/2-5, "Gratulacje! Znalazles ksiezniczke!");
+        mvprintw(sizey/2-5, sizex/2-5, "Congratulations! You saved the princess!");
         
     }
     
