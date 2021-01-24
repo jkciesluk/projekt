@@ -18,7 +18,7 @@ bool sprawdz (int i, int j);
 void rand_plansz (int lvl, char typ, int a, int b);
 void drzwi(int i, int j);
 void wykonaj(int lvl);
-void n_lvl (int kl, int lvl);
+bool n_lvl (int kl, int lvl);
 void gen_act_room(int a, int b);
 void act_P(int a, int b);
 void ret_room(char input, int a, int b);

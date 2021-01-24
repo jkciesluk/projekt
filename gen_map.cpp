@@ -245,11 +245,11 @@ void wykonaj(int lvl)   //ustal plansze w zaleznosci od poziomu
     }
 }
 
-void n_lvl (int kl, int lvl) //posiadajac trzy klucze po wejsciu na E generuje nowa plansze dla lvl+1
+bool n_lvl (int kl, int lvl) //posiadajac trzy klucze po wejsciu na E generuje nowa plansze dla lvl+1
 {
     if(kl==3 && lvl==3)
     {
-        //wygrana
+        return true;
     }
     else if(kl==3)
     {
@@ -260,7 +260,9 @@ void n_lvl (int kl, int lvl) //posiadajac trzy klucze po wejsciu na E generuje n
             P[i][j] = '\0';
         }
         wykonaj(lvl);
+        return true;
     }
+    return false;
 }
 
 

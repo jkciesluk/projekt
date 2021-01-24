@@ -57,7 +57,11 @@ void print_room(WINDOW *win, char room[9][9]){
                 mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
                 wattroff(win, COLOR_PAIR(5));
                 break;    
-            
+            case '+':
+                wattron(win, COLOR_PAIR(6));
+                mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
+                wattroff(win, COLOR_PAIR(6));
+                break;    
             default: 
                 mvwprintw(win, 1+i, 2+j*2, "%c ", room[i][j]);
                 break;
@@ -86,7 +90,8 @@ void print_help(WINDOW *win){
 void init_color_pairs(){
     init_pair(1, COLOR_GREEN, 0);
     init_pair(2, COLOR_RED, 0);
-    init_pair(3, COLOR_YELLOW, 0);
+    init_pair(3, COLOR_MAGENTA, 0);
     init_pair(4, COLOR_CYAN, 0);
     init_pair(5, COLOR_BLUE, 0);
+    init_pair(6, COLOR_YELLOW, 0);
 }

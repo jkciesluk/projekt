@@ -47,7 +47,7 @@ int main()
     gY=73;
     
     gen_act_room(gX, gY);
-
+    t[xp][yp]=sym[0];
     initscr();
     start_color();
     getmaxyx(stdscr,sizey,sizex);       //set up ncurses
@@ -81,9 +81,10 @@ int main()
     while((player.hp)>0)
     {
         scanf("\n%c",&input);
+        if(t[xp][yp]!='E')t[xp][yp]=sym[2];
+        
 
-
-        t[xp][yp]=sym[2];
+        
 
         // zmiana pozycji gracza/uzycie mikstury zaleznie od wczytanej czynnosci
         if(t[xp+1][yp]==sym[1])
@@ -207,9 +208,19 @@ int main()
             if(input =='a') {gX-=9; yp=7;}
             if(input =='d') {gX+=9; yp=1;}
         }
-        t[xp][yp]=sym[0];
+        
+        if(t[xp][yp]=='E'){
+            if(n_lvl(player.keys, lvl)){
+            gX=73;
+            gY=73;
+            gen_act_room(gX,gY);
+            player.keys=0;
+            lvl++;
+            }
+            if(lvl>3) break;
+        }
 
-
+        if(t[xp][yp]!='E') t[xp][yp]=sym[0];
 
         
         UpdateEnemies(t);
