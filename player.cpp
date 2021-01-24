@@ -29,12 +29,12 @@ char t[RES][RES];
 
 char input;
 
-
+int sizex, sizey;
 int main()
 {
     first player;
 
-    player.hp = maxhp;
+    player.hp = 1;
     player.pot = 1;
     player.keys = 0;
 
@@ -65,15 +65,18 @@ int main()
 
     initscr();
     start_color();
+    getmaxyx(stdscr,sizey,sizex);       //set up ncurses
     init_color_pairs();
     refresh();
+    noecho();
+    curs_set(0);
     WINDOW *field;     //displayed rooms
     WINDOW *ham;     //zdrowie, mikstury, atak
     WINDOW *help;   //how to play
 
-    field=create_window(11, 21, 5, 5, TRUE);
-    help=create_window(5, 35, 10, 30, FALSE);
-    ham=create_window(5, 25, 5, 30, TRUE);
+    field=create_window(11, 21, (sizey-11)/2, sizex/2-33, TRUE);
+    help=create_window(5, 35, (sizey-11)/2+5, sizex/2-10, FALSE);
+    ham=create_window(5, 25, (sizey-11)/2, sizex/2-10, TRUE);
 
     print_room(field, t);
     print_ham(ham, player.hp,maxhp, 0, player.pot);
@@ -208,12 +211,23 @@ int main()
         }
 
 
-
         print_room(field, t);
         print_ham(ham, player.hp,maxhp, 0, player.pot);
     }
 
-
+    wborder(field, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+    wborder(ham, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+    wborder(ham, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+    clear();
+    if(player.hp<=0){
+        mvprintw(sizey/2-1, sizex/2-5, "Przegrales!");
+    }
+    else{
+        mvprintw(sizey/2-5, sizex/2-5, "Gratulacje! Znalazles ksiezniczke!");
+        
+    }
+    
+    refresh();
     getch();
     endwin();
 
