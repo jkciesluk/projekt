@@ -5,7 +5,7 @@
 
 void UpdateEnemies(char board[RES][RES]);
 
-extern char sym[7];
+extern char sym[8];
 WINDOW *create_window(int height, int width, int posy, int posx, bool border);
 void print_room(WINDOW *win, char room[9][9]);
 void print_ham(WINDOW *win, int h,int hmax, int keys, int m);
