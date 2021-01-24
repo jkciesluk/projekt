@@ -13,7 +13,7 @@ using namespace std;
 #define RES 9
 
 bool IsEnemy(char c){
-	return c == sym[1] || c == sym[4] || c == sym[5];
+	return c == 'm' || c == 'M' || c == 'W';
 }
 
 void UpdateEnemies(char board[RES][RES]){
@@ -32,7 +32,7 @@ void UpdateEnemies(char board[RES][RES]){
 				x_p = i;
 				y_p = j;
 				vis[i][j] = true;
-			}else if(board[i][j] == sym[3] || board[i][j] == sym[1]){
+			}else if(board[i][j] == sym[3] || IsEnemy(board[i][j])){
 				vis[i][j] = true;								// Oznaczam ściany oraz potwory jako odwiedzone,
 			}																 //  nie będę musiał tego sprawdzać w bfs
 		}
@@ -86,22 +86,22 @@ void UpdateEnemies(char board[RES][RES]){
 
 	for(int i = 1; i < RES-1; i++){
 		for(int j = 1; j < RES-1; j++){
-			if(board[i][j] == sym[1]){
+			if(IsEnemy(board[i][j])){
 
 				int mindist = min(min(dist[i-1][j], dist[i][j+1]), min(dist[i+1][j], dist[i][j-1]));
 
 				if(board[i-1][j] == sym[2] && dist[i-1][j] == mindist){
+					board[i-1][j] = board[i][j];
 					board[i][j] = sym[2];
-					board[i-1][j] = sym[1];
 				}else if(board[i][j+1] == sym[2] && dist[i][j+1] == mindist){
+					board[i][j+1] = board[i][j];
 					board[i][j] = sym[2];
-					board[i][j+1] = sym[1];
 				}else if(board[i+1][j] == sym[2] && dist[i+1][j] == mindist){
+					board[i+1][j] = board[i][j];
 					board[i][j] = sym[2];
-					board[i+1][j] = sym[1];
 				}else if(board[i][j-1] == sym[2] && dist[i][j-1] == mindist){
+					board[i][j-1] = board[i][j];
 					board[i][j] = sym[2];
-					board[i][j-1] = sym[1];
 				}
 
 			}
