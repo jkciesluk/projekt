@@ -5,18 +5,19 @@
 using namespace std;
 #define RES 9
 
-char sym[7] = {'@'/*Gracz*/, '$'/*Potwór*/, '+'/*Puste pole*/, '#'/*Œciana*/, '-' /*potwor dwufazowy*/, '!' /*potwor 3faz*/, 'M' /*mikstura*/};
+char sym[8] = {'@'/*Gracz*/, 'm'/*Potwór*/, '+'/*Puste pole*/, '#'/*Œciana*/, 'M' /*potwor dwufazowy*/, 'W' /*potwor 3faz*/, 'P' /*mikstura*/, 'K' /*mikstura*/};
 
 typedef struct hero
 {
 
     int hp;
     int pot;
+    int keys;
 //int atak; na te chwile bez znaczenia
 
 } first;
 
-#define maxhp 10
+#define maxhp 15
 #define wrogatak1 2
 #define wrogatak2 3
 #define wrogatak3 4
@@ -28,13 +29,14 @@ char t[RES][RES];
 
 char input;
 
-
+int sizex, sizey;
 int main()
 {
     first player;
 
-    player.hp = maxhp;
+    player.hp = 1;
     player.pot = 1;
+    player.keys = 0;
 
 
     for(int i=0; i<RES; i++)
@@ -51,7 +53,8 @@ int main()
             }
         }
     }
-
+    t[8][4]='D';
+    t[4][4]='P';
     int xp=3;
     int yp=3;
 
@@ -60,14 +63,24 @@ int main()
     t[5][7]=sym[1];
     t[7][6]=sym[1];
 
-    for(int i=0; i<RES; i++)
-        {
-            for (int j=0; j<RES; j++)
-            {
-                printf(" %c",t[i][j]);
-            }
-            printf("\n");
-        }
+    initscr();
+    start_color();
+    getmaxyx(stdscr,sizey,sizex);       //set up ncurses
+    init_color_pairs();
+    refresh();
+    noecho();
+    curs_set(0);
+    WINDOW *field;     //displayed rooms
+    WINDOW *ham;     //zdrowie, mikstury, atak
+    WINDOW *help;   //how to play
+
+    field=create_window(11, 21, (sizey-11)/2, sizex/2-33, TRUE);
+    help=create_window(5, 35, (sizey-11)/2+5, sizex/2-10, FALSE);
+    ham=create_window(5, 25, (sizey-11)/2, sizex/2-10, TRUE);
+
+    print_room(field, t);
+    print_ham(ham, player.hp,maxhp, 0, player.pot);
+    print_help(help);
 
     while((player.hp)>0)
     {
@@ -117,6 +130,9 @@ int main()
         {
             player.pot=player.pot - 1;
             player.hp = maxhp;
+        }
+        if(t[xp][yp]==sym[7]){
+            player.keys=player.keys + 1;
         }
         t[xp][yp]=sym[0];
 
@@ -195,24 +211,25 @@ int main()
         }
 
 
-
-
-
-
-
-        for(int i=0; i<RES; i++)
-        {
-            for (int j=0; j<RES; j++)
-            {
-                printf(" %c",t[i][j]);
-            }
-            printf("\n");
-        }
-
+        print_room(field, t);
+        print_ham(ham, player.hp,maxhp, 0, player.pot);
     }
 
-
-
+    wborder(field, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+    wborder(ham, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+    wborder(ham, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+    clear();
+    if(player.hp<=0){
+        mvprintw(sizey/2-1, sizex/2-5, "Przegrales!");
+    }
+    else{
+        mvprintw(sizey/2-5, sizex/2-5, "Gratulacje! Znalazles ksiezniczke!");
+        
+    }
+    
+    refresh();
+    getch();
+    endwin();
 
     return 0;
 }
