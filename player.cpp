@@ -34,7 +34,7 @@ int main()
 {
     first player;
 
-    player.hp = 1;
+    player.hp = maxhp;
     player.pot = 1;
     player.keys = 0;
 
@@ -60,7 +60,7 @@ int main()
 
     t[xp][yp]=sym[0];
 
-    t[5][7]=sym[1];
+    t[5][7]=sym[5];
     t[7][6]=sym[1];
 
     initscr();
@@ -73,7 +73,17 @@ int main()
     WINDOW *field;     //displayed rooms
     WINDOW *ham;     //zdrowie, mikstury, atak
     WINDOW *help;   //how to play
-
+    attron(COLOR_PAIR(1));
+    mvprintw(sizey/2-4, sizex/2-20, "Swiety Wedrowiec wsrod debow");
+    mvprintw(sizey/2-2, sizex/2-20, "Przed Toba 3 pietra labiryntu");
+    mvprintw(sizey/2-1, sizex/2-20, "Na koncu czeka na Ciebie piekna ksiezniczka");
+    mvprintw(sizey/2, sizex/2-20, "Unikaj potworow, zbieraj klucz i ja uratuj");
+    mvprintw(sizey/2+2, sizex/2-20, "Wcisnij dowolny przycisk zeby rozpoczac");
+    attroff(COLOR_PAIR(1));
+    refresh();
+    getch();
+    clear();
+    refresh();
     field=create_window(11, 21, (sizey-11)/2, sizex/2-33, TRUE);
     help=create_window(5, 35, (sizey-11)/2+5, sizex/2-10, FALSE);
     ham=create_window(5, 25, (sizey-11)/2, sizex/2-10, TRUE);
@@ -81,6 +91,7 @@ int main()
     print_room(field, t);
     print_ham(ham, player.hp,maxhp, 0, player.pot);
     print_help(help);
+
 
     while((player.hp)>0)
     {
@@ -91,7 +102,7 @@ int main()
 
         // zmiana pozycji gracza/uzycie mikstury zaleznie od wczytanej czynnosci
 
-        if(input=='w' && t[xp-1][yp]!=sym[3])
+        if(input=='w' && t[xp-1][yp]!=sym[3] && t[xp-1][yp]!=sym[5] && t[xp-1][yp]!=sym[4] && t[xp-1][yp]!=sym[1])
         {
             if(t[xp-1][yp]==sym[6])
             {
@@ -99,7 +110,7 @@ int main()
             }
             xp--;
         }
-        else if(input=='s' && t[xp+1][yp]!=sym[3])
+        else if(input=='s' && t[xp+1][yp]!=sym[3]  && t[xp+1][yp]!=sym[5] && t[xp+1][yp]!=sym[4] && t[xp+1][yp]!=sym[4])
         {
             if(t[xp+1][yp]==sym[6])
             {
@@ -108,7 +119,7 @@ int main()
             xp++;
 
         }
-        else if(input=='a' && t[xp][yp-1]!=sym[3])
+        else if(input=='a' && t[xp][yp-1]!=sym[3]  && t[xp][yp-1]!=sym[5] && t[xp][yp-1]!=sym[4] && t[xp][yp-1]!=sym[1])
         {
             if(t[xp][yp-1]==sym[6])
             {
@@ -117,7 +128,7 @@ int main()
             yp--;
 
         }
-        else if(input=='d' && t[xp][yp+1]!=sym[3])
+        else if(input=='d' && t[xp][yp+1]!=sym[3]  && t[xp][yp+1]!=sym[5] && t[xp][yp+1]!=sym[4] && t[xp][yp+1]!=sym[1])
         {
             if(t[xp][yp+1]==sym[6])
             {
