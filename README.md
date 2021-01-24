@@ -9,23 +9,23 @@ To achieve your goal you have to beat three different levels of a maze,
 to get through each level you have to find a way out and unlock it using three keys located on your map.
 
 #### Controls
-W - move up
-S - move down
-A - move left
-D - move right
-P - use potion
+\W - move up
+\S - move down
+\A - move left
+\D - move right
+\P - use potion
 
 ##### Symbols
 \# - wall
-+ - free space
-@ - player
-P - potion
-K - key
-m - small monster
-M - medium monster
-W - big monster
-D - doors
-E - hatch to the next level
+\+ - free space
+\@ - player
+\P - potion
+\K - key
+\m - small monster
+\M - medium monster
+\W - big monster
+\D - doors
+\E - hatch to the next level
 
 
 ###### How to install:
