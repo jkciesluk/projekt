@@ -1,9 +1,10 @@
 #include "rooms.h"
+#include "head.h"
 #include <iostream>
 #include <time.h>
 #include <stdbool.h>
 using namespace std;
-char P[155][155];
+
 
 void plansza_enter (char Tt[][9], int ai, int aj)   //wstawia w tablice Tt w miejsce w tablicy P o indeksach [ai, aj]
 {
@@ -262,14 +263,14 @@ void n_lvl (int kl, int lvl) //posiadajac trzy klucze po wejsciu na E generuje n
     }
 }
 
-char room[9][9];
-void gen_act_room(int a, int b) //tablica room bedzie przechowywac pokoj w ktorym aktualnie sie znajdujemy
+
+void gen_act_room(int a, int b) //tablica t bedzie przechowywac pokoj w ktorym aktualnie sie znajdujemy
 {
     for(int i = 0; i < 9; i++)
     {
         for(int j = 0; j < 9; j++)
         {
-            room[i][j] = P[a+i][b+j];
+            t[i][j] = P[a+i][b+j];
         }
     }
 }
@@ -280,31 +281,30 @@ void act_P(int a, int b)    //umieszcza zaktualizowany pokoj spowrotem w tablicy
     {
         for(int j = 0; j < 9; j++)
         {
-            P[a+i][b+j] = room[i][j];
+            P[a+i][b+j] = t[i][j];
         }
     }
 }
 
-int x = 4, y = 4;   //polozenie w pokoju room na poczatku nowego poziomu
-
-void ret_room(char input, int a, int b) //przechodzenie miedzy pokojami; input to wcisniety przez gracza przycisk, a i b to wspolrzedne room na planszy P
+void ret_room(char input, int a, int b) //przechodzenie miedzy pokojami; input to wcisniety przez gracza przycisk, a i b to wspolrzedne t na planszy P
 {
-    if(input == 'w' && room[x][y] == 'D')
+    
+    if(input == 'w')
     {
         act_P(a, b);
         gen_act_room(a-9, b);
     }
-    else if(input == 'a' && room[x][y] == 'D')
+    else if(input == 'a')
     {
         act_P(a, b);
         gen_act_room(a, b-9);
     }
-    else if(input == 's' && room[x][y] == 'D')
+    else if(input == 's')
     {
         act_P(a, b);
         gen_act_room(a+9, b);
     }
-    else if(input == 'd' && room[x][y] == 'D')
+    else if(input == 'd')
     {
         act_P(a, b);
         gen_act_room(a, b+9);

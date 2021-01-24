@@ -23,46 +23,30 @@ typedef struct hero
 #define wrogatak3 4
 
 //#define wroghp 3
-
-char t[RES][RES];
+char P[155][155];
+char t[9][9];
 
 int gX, gY;
-
+int lvl;
 char input;
 
 int sizex, sizey;
 int main()
 {
     first player;
-
+    lvl=1;
     player.hp = maxhp;
     player.pot = 1;
     player.keys = 0;
+    wykonaj(lvl);
+    
 
-
-    for(int i=0; i<RES; i++)
-    {
-        for (int j=0; j<RES; j++)
-        {
-            if(i==0 || j==RES-1 || j==0 || i==RES-1 )
-            {
-                t[i][j]=sym[3];
-            }
-            else
-            {
-                t[i][j]=sym[2];
-            }
-        }
-    }
-    t[8][4]='D';
-    t[4][4]='P';
     int xp=3;
     int yp=3;
+    gX=73;
+    gY=73;
     
-    t[xp][yp]=sym[0];
-
-    t[5][7]=sym[5];
-    t[7][6]=sym[1];
+    gen_act_room(gX, gY);
 
     initscr();
     start_color();
@@ -217,7 +201,11 @@ int main()
 
         if(t[xp][yp]=='D'){
             
-            //ret_room(input, )
+            ret_room(input, gY, gX);
+            if(input =='w') {gY-=9; xp=7;}
+            if(input =='s') {gY+=9; xp=1;}
+            if(input =='a') {gX-=9; yp=7;}
+            if(input =='d') {gX+=9; yp=1;}
         }
         t[xp][yp]=sym[0];
 
@@ -231,7 +219,7 @@ int main()
 
 
         print_room(field, t);
-        print_ham(ham, player.hp,maxhp, 0, player.pot);
+        print_ham(ham, player.hp,maxhp, player.keys, player.pot);
     }
 
     wborder(field, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
