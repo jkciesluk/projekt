@@ -70,7 +70,7 @@ void print_room(WINDOW *win, char room[9][9]){
 
 void print_ham(WINDOW *win, int h,int hmax, int keys, int m){
     wattron(win, COLOR_PAIR(1));
-    mvwprintw(win, 1, 1, "Health: %d/%d", h, hmax);
+    mvwprintw(win, 1, 1, "Health: %2.d/%2.d", h, hmax);
     mvwprintw(win, 2, 1, "Potions: %d", m);
     mvwprintw(win, 3, 1, "Keys: %d/3", keys);
     wattroff(win, COLOR_PAIR(1));
