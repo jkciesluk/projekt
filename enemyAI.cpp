@@ -12,9 +12,11 @@ using namespace std;
 
 #define RES 9
 
+bool IsEnemy(char c){
+	return c == sym[1] || c == sym[4] || c == sym[5];
+}
 
 void UpdateEnemies(char board[RES][RES]){
-	char sym[4] = {'@'/*Gracz*/, '$'/*Potwór*/, '+'/*Puste pole*/, '#'/*Ściana*/};
 
 	int x_p = 0, y_p = 0; // Pozycja gracza
 
